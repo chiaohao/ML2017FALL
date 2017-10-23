@@ -1,0 +1,1 @@
+python3 logistic/hw2_test.py $5 $6

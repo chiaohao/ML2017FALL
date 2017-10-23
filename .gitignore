@@ -2,3 +2,5 @@ hw1/out_save/*
 hw1/report/*
 hw1/train/train.csv
 hw1/test.csv
+hw2/data/*
+hw2/out_save/*
