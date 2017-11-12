@@ -3,7 +3,6 @@ from keras.layers import Dense, Activation, Convolution2D, MaxPooling2D, Flatten
 from keras.optimizers import Adam
 from keras.layers.normalization import BatchNormalization
 from keras.utils import np_utils
-from keras import regularizers
 from keras.callbacks import EarlyStopping, ModelCheckpoint, CSVLogger
 from keras.utils import plot_model
 from keras.preprocessing.image import ImageDataGenerator
@@ -72,26 +71,23 @@ model.summary()
 
 csvLogger = CSVLogger('log_preimage.csv', append=True, separator=',')
 cp = ModelCheckpoint("model_preimage_save_best.h5", monitor='val_loss', save_best_only=True)
-e = EarlyStopping(monitor='val_loss', patience=100)
+#e = EarlyStopping(monitor='val_loss', patience=100)
 image_gen = ImageDataGenerator(
-        #featurewise_center=True,
-        #featurewise_std_normalization=True,
         rotation_range=30,
         zoom_range=0.1,
         width_shift_range=0.2,
         height_shift_range=0.2,
         horizontal_flip=True)
 image_gen.fit(xs_train)
-history = model.fit_generator(
+model.fit_generator(
         image_gen.flow(xs_train, ys_train, batch_size=64),
         steps_per_epoch=len(xs_train)//64,
         validation_data=(xs_test, ys_test),
-        epochs=1000,
-        callbacks=[e, cp, csvLogger])
-#history = model.fit(x=xs, y=ys, validation_split=0.2, batch_size=128, epochs=1000, callbacks=[e])
-model.save('model_preimage_save.h5')
-plot_model(model, to_file='model_preimage_plot.png')
+        epochs=300,
+        callbacks=[cp, csvLogger])
 
+#plot_model(model, to_file='model_preimage_plot.png')
+'''
 result = model.predict(xs_predict, batch_size=64)
 result = [r.argmax() for r in result]
 
@@ -100,4 +96,4 @@ for idx, i in enumerate(result):
     w.append([str(idx), str(int(round(i)))])
 with open(sys.argv[3], 'w') as f:
     f.write('id,label\n' + '\n'.join([','.join(i) for i in w]))
-    
+''' 
