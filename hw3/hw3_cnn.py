@@ -22,13 +22,13 @@ with open(sys.argv[1]) as csvfile:
     ys_train = ys[:-d]
     xs_test = xs[-d:]
     ys_test = ys[-d:]
-
+'''
 with open(sys.argv[2]) as csvfile2:
     r = list(csv.reader(csvfile2))
     r = r[1:]
     xs_predict = np.asarray([[int(j) for j in i[1].split(' ')] for i in r])
     xs_predict = xs_predict.reshape(-1,48,48,1) / 255.0
-
+'''
 model = Sequential()
 
 model.add(Convolution2D(64,3,3,input_shape=(48,48,1)))
@@ -69,8 +69,8 @@ model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accur
 
 model.summary()
 
-csvLogger = CSVLogger('log_preimage.csv', append=True, separator=',')
-cp = ModelCheckpoint("model_preimage_save_best.h5", monitor='val_loss', save_best_only=True)
+csvLogger = CSVLogger('log_cnn.csv', append=True, separator=',')
+cp = ModelCheckpoint("model_cnn.h5", monitor='val_loss', save_best_only=True)
 #e = EarlyStopping(monitor='val_loss', patience=100)
 image_gen = ImageDataGenerator(
         rotation_range=30,

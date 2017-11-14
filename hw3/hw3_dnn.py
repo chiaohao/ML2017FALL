@@ -50,7 +50,7 @@ model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accur
 model.summary()
 
 csvLogger = CSVLogger('log_dnn.csv', append=True, separator=',')
-cp = ModelCheckpoint("model_dnn_best.h5", monitor='val_loss', save_best_only=True)
+cp = ModelCheckpoint("model_dnn.h5", monitor='val_loss', save_best_only=True)
 
 model.fit(
         xs,

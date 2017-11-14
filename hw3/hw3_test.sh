@@ -1,0 +1,1 @@
+python3 hw3_load.py model_cnn_best.h5 $1 $2
