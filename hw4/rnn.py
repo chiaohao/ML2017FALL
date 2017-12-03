@@ -53,12 +53,12 @@ model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy']
 
 model.summary()
 
-csvLogger = CSVLogger('log_dnn.csv', append=False, separator=',')
+csvLogger = CSVLogger('log_rnn.csv', append=False, separator=',')
 #cp = ModelCheckpoint("model_dnn.h5", monitor='val_loss', save_best_only=True)
 #e = EarlyStopping(monitor='val_loss', patience=100)
 
 for i in range(20):
-    cp = ModelCheckpoint('model_dnn%d.h5' % (i), monitor='val_loss', save_best_only=True)
+    cp = ModelCheckpoint('model_rnn%d.h5' % (i), monitor='val_loss', save_best_only=True)
     model.fit(xs_train, ys_train, batch_size=256, epochs=1, validation_data=(xs_val, ys_val), callbacks=[csvLogger, cp])
     ys_nolabel = model.predict(xs_nolabel, batch_size=256)
     ys_nolabel = ys_nolabel.reshape((ys_nolabel.shape[0],1))
@@ -66,7 +66,8 @@ for i in range(20):
     ys_toAdd = []
     xs_notAdd = []
     for j in range(len(xs_nolabel)):
-        if ys_nolabel[j] > 0.9 or ys_nolabel[j] < 0.1:
+        yn = ys_nolabel[j]
+        if (yn > 0.75 and yn < 0.9) or (yn > 0.1 and yn < 0.25):
             ys_toAdd.append(np.around(ys_nolabel[j]))
             xs_toAdd.append(xs_nolabel[j])
         else:
