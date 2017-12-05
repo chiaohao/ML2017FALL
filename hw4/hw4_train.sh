@@ -1,0 +1,1 @@
+python3 rnn_kfold.py $1 $2

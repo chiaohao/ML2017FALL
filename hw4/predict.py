@@ -14,7 +14,7 @@ with open('tokenizer.pickle', 'rb') as handle:
 
 with codecs.open(sys.argv[2], 'r', encoding='utf-8') as file:
     r = [i.split(',', 1)[1] for i in file.readlines()][1:]
-    xs = pad_sequences(tokenizer.texts_to_sequences(r), maxlen=50)
+    xs = pad_sequences(tokenizer.texts_to_sequences(r), maxlen=37)
 
 result = model.predict(xs, batch_size=128)
 result = np.around(result)
