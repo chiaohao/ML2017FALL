@@ -56,11 +56,11 @@ m_xs_val = data_val[:,2]
 ys_val = data_val[:,3]
 
 M_input = Input(shape=[1])
-M_vec = Flatten()(Embedding(len(movies_genres),32,embeddings_initializer='random_normal')(M_input))
+M_vec = Flatten()(Embedding(len(movies_genres),64,embeddings_initializer='random_normal')(M_input))
 M_vec = Dropout(0.5)(M_vec)
 
 U_input = Input(shape=[1])
-U_vec = Flatten()(Embedding(len(users),32,embeddings_initializer='random_normal')(U_input))
+U_vec = Flatten()(Embedding(len(users),64,embeddings_initializer='random_normal')(U_input))
 U_vec = Dropout(0.5)(U_vec)
 
 M_bias = Flatten()(Embedding(len(movies_genres),1,embeddings_initializer='zeros')(M_input))
