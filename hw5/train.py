@@ -57,15 +57,15 @@ m_xs_val = data_val[:,2]
 ys_val = data_val[:,3]
 
 M_input = Input(shape=[1])
-M_vec = Flatten()(Embedding(movies_max,64,embeddings_initializer='random_normal')(M_input))
+M_vec = Flatten()(Embedding(movies_max+1,64,embeddings_initializer='random_normal')(M_input))
 M_vec = Dropout(0.5)(M_vec)
 
 U_input = Input(shape=[1])
-U_vec = Flatten()(Embedding(len(users),64,embeddings_initializer='random_normal')(U_input))
+U_vec = Flatten()(Embedding(len(users)+1,64,embeddings_initializer='random_normal')(U_input))
 U_vec = Dropout(0.5)(U_vec)
 
-M_bias = Flatten()(Embedding(movies_max,1,embeddings_initializer='zeros')(M_input))
-U_bias = Flatten()(Embedding(len(users),1,embeddings_initializer='zeros')(U_input))
+M_bias = Flatten()(Embedding(movies_max+1,1,embeddings_initializer='zeros')(M_input))
+U_bias = Flatten()(Embedding(len(users)+1,1,embeddings_initializer='zeros')(U_input))
 
 input_vecs = Dot(axes=1)([U_vec, M_vec])
 input_vecs = Add()([input_vecs, U_bias, M_bias])
