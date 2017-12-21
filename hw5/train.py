@@ -37,6 +37,7 @@ with open(sys.argv[2], 'r', encoding='utf-8', errors='ignore') as f:
             if (genres[j] in t):
                 tmp[i][j] = 1
     movies_genres = np.array(tmp)
+    movies_max = np.max(np.array([int(m[0]) for m in movies]))
 
 data = genfromtxt(sys.argv[3], delimiter=',', skip_header=True)
 data_train = []
@@ -56,7 +57,7 @@ m_xs_val = data_val[:,2]
 ys_val = data_val[:,3]
 
 M_input = Input(shape=[1])
-M_vec = Flatten()(Embedding(len(movies_genres),64,embeddings_initializer='random_normal')(M_input))
+M_vec = Flatten()(Embedding(movies_max,64,embeddings_initializer='random_normal')(M_input))
 M_vec = Dropout(0.5)(M_vec)
 
 U_input = Input(shape=[1])
