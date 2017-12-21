@@ -64,7 +64,7 @@ U_input = Input(shape=[1])
 U_vec = Flatten()(Embedding(len(users),64,embeddings_initializer='random_normal')(U_input))
 U_vec = Dropout(0.5)(U_vec)
 
-M_bias = Flatten()(Embedding(len(movies_genres),1,embeddings_initializer='zeros')(M_input))
+M_bias = Flatten()(Embedding(movies_max,1,embeddings_initializer='zeros')(M_input))
 U_bias = Flatten()(Embedding(len(users),1,embeddings_initializer='zeros')(U_input))
 
 input_vecs = Dot(axes=1)([U_vec, M_vec])
