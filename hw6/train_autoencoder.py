@@ -85,7 +85,7 @@ class ModelCheckpointWithEncoder(ModelCheckpoint):
                     self.model.save(filepath, overwrite=True)
                     encoder.save('encoder_' + filepath, overwrite=True)
 
-mc = ModelCheckpointWithEncoder(filepath='model_128.h5', save_best_only=True)
+mc = ModelCheckpointWithEncoder(filepath='model.h5', save_best_only=True)
 e = EarlyStopping(patience=5)
 
 autoencoder.fit(x_train, x_train, 
