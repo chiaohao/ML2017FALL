@@ -21,10 +21,13 @@ x = Conv2D(16, (3, 3), activation='relu', padding='same')(x)
 x = Conv2D(8, (3, 3), activation='relu', padding='same')(x)
 x = MaxPooling2D((2, 2), padding='same')(x)
 x = Flatten()(x)
+x = Dense(256, activation='sigmoid')(x)
 x = Dense(128, activation='sigmoid')(x)
 encoded = Dense(64, activation='sigmoid')(x)
 
 x = Dense(128, activation='sigmoid')(encoded)
+x = Dense(256, activation='sigmoid')(x)
+x = Dense(128, activation='sigmoid')(x)
 x = Reshape((4, 4, 8))(x)
 x = Conv2D(8, (3, 3), activation='relu', padding='same')(x)
 x = Conv2D(16, (3, 3), activation='relu', padding='same')(x)
@@ -82,7 +85,7 @@ class ModelCheckpointWithEncoder(ModelCheckpoint):
                     self.model.save(filepath, overwrite=True)
                     encoder.save('encoder_' + filepath, overwrite=True)
 
-mc = ModelCheckpointWithEncoder(filepath='model.h5', save_best_only=True)
+mc = ModelCheckpointWithEncoder(filepath='model_128.h5', save_best_only=True)
 e = EarlyStopping(patience=5)
 
 autoencoder.fit(x_train, x_train, 
