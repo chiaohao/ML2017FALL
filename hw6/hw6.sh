@@ -1,0 +1,1 @@
+python3 predict_cnn_autoencoder.py encoder_model_cnn.h5 $1 $2 $3
